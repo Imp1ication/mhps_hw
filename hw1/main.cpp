@@ -4,7 +4,7 @@
 #include <vector>
 
 int main() {
-    FlowshopScheduler scheduler("test.txt");
+    FlowshopScheduler scheduler("test_data.txt");
     std::vector<int> order = {0, 2, 1, 3, 4};
 
     scheduler.PrintData();
@@ -16,6 +16,7 @@ int main() {
     }
     std::cout << std::endl;
 
+    // correct result: 68
     int result = scheduler.CalculateSchedule(order);
     std::cout << "Result: " << result << std::endl;
 

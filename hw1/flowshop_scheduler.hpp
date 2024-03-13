@@ -23,6 +23,7 @@ class FlowshopScheduler {
 
         file >> num_jobs_ >> num_machines_ >> data_name_;
 
+        // Allocate memory and read processing times
         processing_times_ = new int*[num_machines_];
         for (int machine = 0; machine < num_machines_; ++machine) {
             processing_times_[machine] = new int[num_jobs_];
@@ -67,6 +68,7 @@ class FlowshopScheduler {
     }
 
     int CalculateSchedule(const std::vector<int>& permutation) {
+        // Check if permutation size matches number of jobs
         if (permutation.size() != static_cast<size_t>(num_jobs_)) {
             std::cerr
                 << "Error: Permutation size does not match number of jobs."
@@ -77,23 +79,24 @@ class FlowshopScheduler {
         std::vector<int> machine_end_times(num_machines_, 0);
 
         for (int job : permutation) {
+            // Check if job is valid
             if (job < 0 || job >= num_jobs_) {
                 std::cerr << "Error: Job " << job << " is not valid."
                           << std::endl;
                 return -1;
             }
 
+            // Calculate each machine's end time for the current job.
             for (int machine = 0; machine < num_machines_; ++machine) {
                 int job_times = processing_times_[machine][job];
 
                 if (machine == 0) {
                     machine_end_times[machine] += job_times;
-                } else if (machine_end_times[machine - 1] >
-                           machine_end_times[machine]) {
-                    machine_end_times[machine] =
-                        machine_end_times[machine - 1] + job_times;
                 } else {
-                    machine_end_times[machine] += job_times;
+                    machine_end_times[machine] =
+                        std::max(machine_end_times[machine - 1],
+                                 machine_end_times[machine]) +
+                        job_times;
                 }
             }
         }
