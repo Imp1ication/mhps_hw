@@ -17,7 +17,7 @@ int main() {
     std::cout << std::endl;
 
     // correct result: 68
-    int result = scheduler.CalculateSchedule(order);
+    int result = scheduler.CalculateMakespan(order);
     std::cout << "Result: " << result << std::endl;
 
     return 0;

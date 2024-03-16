@@ -67,7 +67,7 @@ class FlowshopScheduler {
         }
     }
 
-    int CalculateSchedule(const std::vector<int>& permutation) {
+    int CalculateMakespan(const std::vector<int>& permutation) {
         // Check if permutation size matches number of jobs
         if (permutation.size() != static_cast<size_t>(num_jobs_)) {
             std::cerr
