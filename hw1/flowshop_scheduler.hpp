@@ -67,6 +67,9 @@ class FlowshopScheduler {
         }
     }
 
+    int GetNumJobs() const { return num_jobs_; }
+    int GetNumMachines() const { return num_machines_; }
+
     int CalculateMakespan(const std::vector<int>& permutation) {
         // Check if permutation size matches number of jobs
         if (permutation.size() != static_cast<size_t>(num_jobs_)) {
@@ -105,4 +108,23 @@ class FlowshopScheduler {
     }
 };
 
+// int main() {
+//     FlowshopScheduler scheduler("test_data.txt");
+//     std::vector<int> order = {0, 2, 1, 3, 4};
+
+//     scheduler.PrintData();
+//     std::cout << std::endl;
+
+//     std::cout << "Order: ";
+//     for (auto i : order) {
+//         std::cout << i << " ";
+//     }
+//     std::cout << std::endl;
+
+//     // correct result: 68
+//     int result = scheduler.CalculateMakespan(order);
+//     std::cout << "Result: " << result << std::endl;
+
+//     return 0;
+// }
 #endif // FLOWSHOP_SCHEDULER_HPP
