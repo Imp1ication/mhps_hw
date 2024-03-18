@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 int main() {
     FlowshopScheduler scheduler("test_data.txt");
     std::vector<int> order = {0, 2, 1, 3, 4};

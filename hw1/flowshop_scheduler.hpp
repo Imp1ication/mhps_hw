@@ -1,8 +1,10 @@
 #ifndef FLOWSHOP_SCHEDULER_HPP
 #define FLOWSHOP_SCHEDULER_HPP
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -66,19 +68,34 @@ class FlowshopScheduler {
             std::cout << std::endl;
         }
     }
+    void PrintOrderMakespan(const std::vector<int>& order,
+                            const std::string title = "Order") {
+        std::cout << title << ": ";
+        for (auto i : order) {
+            std::cout << i << " ";
+        }
+        std::cout << std::endl;
+
+        std::cout << "Makespan: " << CalculateMakespan(order) << std::endl;
+    }
+
+    std::vector<int> GenerateRandomOrder() {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+
+        std::vector<int> order(num_jobs_);
+        for (int i = 0; i < num_jobs_; ++i) {
+            order[i] = i;
+        }
+        shuffle(order.begin(), order.end(), gen);
+
+        return order;
+    }
 
     int GetNumJobs() const { return num_jobs_; }
     int GetNumMachines() const { return num_machines_; }
 
     int CalculateMakespan(const std::vector<int>& permutation) {
-        // Check if permutation size matches number of jobs
-        if (permutation.size() != static_cast<size_t>(num_jobs_)) {
-            std::cerr
-                << "Error: Permutation size does not match number of jobs."
-                << std::endl;
-            return -1;
-        }
-
         std::vector<int> machine_end_times(num_machines_, 0);
 
         for (int job : permutation) {
@@ -107,24 +124,4 @@ class FlowshopScheduler {
         return machine_end_times[num_machines_ - 1];
     }
 };
-
-// int main() {
-//     FlowshopScheduler scheduler("test_data.txt");
-//     std::vector<int> order = {0, 2, 1, 3, 4};
-
-//     scheduler.PrintData();
-//     std::cout << std::endl;
-
-//     std::cout << "Order: ";
-//     for (auto i : order) {
-//         std::cout << i << " ";
-//     }
-//     std::cout << std::endl;
-
-//     // correct result: 68
-//     int result = scheduler.CalculateMakespan(order);
-//     std::cout << "Result: " << result << std::endl;
-
-//     return 0;
-// }
 #endif // FLOWSHOP_SCHEDULER_HPP
