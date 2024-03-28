@@ -124,4 +124,5 @@ class FlowshopScheduler {
         return machine_end_times[num_machines_ - 1];
     }
 };
+
 #endif // FLOWSHOP_SCHEDULER_HPP

@@ -1,8 +1,8 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++11
+CXXFLAGS = -Wall -Wextra -pedantic -std=c++17
 
-EXECUTABLES = main iter_improv sim_anneal
-SOURCES = main.cpp iter_improv.cpp sim_anneal.cpp
+EXECUTABLES = iter_improv sim_anneal tabu_search
+SOURCES = iter_improv.cpp sim_anneal.cpp tabu_search.cpp
 HEADERS = flowshop_scheduler.hpp
 
 all: $(EXECUTABLES)
